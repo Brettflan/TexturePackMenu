@@ -11,7 +11,7 @@ public class TPMListener extends SpoutListener
 	public void onSpoutCraftEnable(SpoutCraftEnableEvent event)
 	{
 		SpoutPlayer sPlayer = event.getPlayer();
-		if (sPlayer == null || !sPlayer.isSpoutCraftEnabled())
+		if (sPlayer == null)
 			return;
 
 		String texPack = Config.getPack(sPlayer.getName());

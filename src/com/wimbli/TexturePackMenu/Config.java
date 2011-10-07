@@ -172,8 +172,10 @@ public class Config
 			BufferedWriter out = new BufferedWriter(new FileWriter(configFile, false));
 			out.write("# Below is a default config which you will need to update to contain your own texture pack choices. You will need to restart your server after making changes." + newLine);
 			out.write("# Each entry consists of the displayed name of the texture pack, followed by the download URL that will be used. There is no limit to the number of entries." + newLine);
+			out.write("# Texture pack names must be limited to 26 characters long at most. Longer ones will cause errors." + newLine);
 			out.write("# The first entry will always be the default, which players new to the server will be set to." + newLine);
 			out.write("# Be sure to test each one you add to make sure it works. An invalid URL will cause an error, and an URL which fails will make that entry do nothing." + newLine);
+			out.write("# If a texture pack fails to load properly, try changing the URL filename. In particular, try replacing spaces (\" \") and other special characters with underscores (\"_\")." + newLine);
 			out.write("# If you do want to allow players to use their own texture pack, you can leave a blank URL as seen below for \"Player Choice\"." + newLine);
 			out.write("# Note that if you want to use quotation marks (\") in texture pack names, you will need to add them with a backslash like so to prevent parsing errors: \\\"" + newLine);
 			out.write("#     example: \"The \\\"Silly\\\" Pack\": \"http://fake-server.net/sillypack.zip\"" + newLine);
