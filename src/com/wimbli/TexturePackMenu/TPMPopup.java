@@ -29,6 +29,11 @@ public class TPMPopup extends GenericPopup
 
 	public static void create(Plugin plugin, Player player)
 	{
+		if (!player.hasPermission("texturepackmenu.texture")) {
+			player.sendMessage("You do not have the necessary permission to choose a texture pack.");
+			return;
+		}
+
 		TPMPopup newPopup = new TPMPopup(plugin, player);
 		newPopup.initiate();
 	}
@@ -228,7 +233,6 @@ public class TPMPopup extends GenericPopup
 
 			current.setWidth(bWidth).setHeight(bHeight);
 			current.setX(rowToggle ? offsetLeft1 : offsetLeft2).setY(offsetTop);
-//			current.setTextColor(new Color(255,127,127,0));
 
 			bChoice.add(current);
 			this.attachWidget(tmpPlugin, current);

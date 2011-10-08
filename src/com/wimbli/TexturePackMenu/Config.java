@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.bukkit.ChatColor;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.reader.UnicodeReader;
@@ -86,7 +87,11 @@ public class Config
 	public static void setPack(SpoutPlayer sPlayer, String packName)
 	{
 		if (!texturePacks.containsKey(packName))
+		{
 			setPack(sPlayer, 0);
+			if (sPlayer.hasPermission("texturepackmenu.texture"))
+				sPlayer.sendNotification("Texture packs available", "Use command: "+ChatColor.AQUA+"/texture", Material.PAPER, (short)0, 10000);
+		}
 		else
 			setPlayerTexturePack(sPlayer, packName);
 	}
@@ -109,7 +114,6 @@ public class Config
 		sPlayer.sendNotification("Texture pack selected:", packName, Material.PAINTING);
 		playerPacks.put(sPlayer.getName(), packName);
 	}
-
 
 
 	// load player data
