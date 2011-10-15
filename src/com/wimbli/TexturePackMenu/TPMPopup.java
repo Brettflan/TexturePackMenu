@@ -63,7 +63,7 @@ public class TPMPopup extends GenericPopup
 		}
 
 		packNames = Config.texPackNames();
-		maxPage = (int)Math.floor((double)packNames.length / 10.0);
+		maxPage = (int)Math.ceil((double)packNames.length / 10.0) - 1;
 	}
 
 	public void initiate()
