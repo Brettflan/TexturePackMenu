@@ -1,7 +1,7 @@
 name: TexturePackMenu
 author: Brettflan
 description: A Spout plugin which forces players to use a server-sanctioned texture pack. They can use the server default, or browse the available texture packs through a menu.
-version: 1.0.2
+version: 1.0.3
 main: com.wimbli.TexturePackMenu.TexturePackMenu
 depend:
   - Spout
@@ -9,8 +9,17 @@ commands:
   texture:
     description: Primary command for TexturePackMenu.
     aliases: [texturemenu, tpm]
-    usage: <command> - show texture pack choice menu.
+    usage:
+      - <command> - show the texture pack choice menu
+      - <command> reload - reload texture pack list from config.yml
+      - <command> reset <player> - reset texture pack for specified player
 permissions:
   texturepackmenu.texture:
     description: Allows the player to change their texture pack using the /texture command
     default: true
+  texturepackmenu.reload:
+    description: Ability to make the plugin reload the texture pack list from config.yml, using /texture reload
+    default: op
+  texturepackmenu.reset:
+    description: Ability to reset a player's texture pack to the default using /texture reset <player>
+    default: op

@@ -10,15 +10,17 @@ import java.util.LinkedHashMap;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.ChatColor;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.reader.UnicodeReader;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.Material;
 
 import org.getspout.spoutapi.player.SpoutPlayer;
-
+import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.io.CRCStore;
 
 public class Config
 {
@@ -30,6 +32,8 @@ public class Config
 
 	private static Map<String, String> texturePacks = new LinkedHashMap<String, String>();  // (Pack Name, URL)
 	private static Map<String, String> playerPacks = new HashMap<String, String>();  // (Player Name, Pack Name)
+
+	private static byte[] crcBuffer = new byte[16384];
 
 
 	// load config
@@ -46,18 +50,7 @@ public class Config
 		options.setDefaultScalarStyle(DumperOptions.ScalarStyle.DOUBLE_QUOTED);
 		yaml = new Yaml(options);
 
-		try
-		{
-			FileInputStream in = new FileInputStream(configFile);
-			texturePacks = (Map<String, String>)yaml.load(new UnicodeReader(in));
-		}
-		catch (FileNotFoundException e)
-		{
-		}
-
-		if (texturePacks == null || texturePacks.isEmpty())
-			useDefaults();
-
+		loadTexturePackList();
 		loadPlayerPacks();
 	}
 
@@ -78,10 +71,10 @@ public class Config
 
 	public static String getPack(String playerName)
 	{
-		if (!playerPacks.containsKey(playerName))
+		if (!playerPacks.containsKey(playerName.toLowerCase()))
 			return "";
 
-		return playerPacks.get(playerName);
+		return playerPacks.get(playerName.toLowerCase());
 	}
 
 	public static void setPack(SpoutPlayer sPlayer, String packName)
@@ -109,12 +102,54 @@ public class Config
 		if (packURL == null || packURL.isEmpty())
 			sPlayer.resetTexturePack();
 		else
+		{
 			sPlayer.setTexturePack(packURL);
 
+			// make sure it checks out as valid, by getting CRC value for it
+			Long crc = null;
+			crc = CRCStore.getCRC(packURL, crcBuffer);
+			if (crc == null || crc == 0)
+				plugin.logWarn("Bad CRC value for texture pack. It is probably an invalid URL: "+packURL);
+		}
+
 		sPlayer.sendNotification("Texture pack selected:", packName, Material.PAINTING);
-		playerPacks.put(sPlayer.getName(), packName);
+		storePlayerTexturePack(sPlayer.getName(), packName);
 	}
 
+	public static void storePlayerTexturePack(String playerName, String packName)
+	{
+		playerPacks.put(playerName.toLowerCase(), packName);
+	}
+
+	public static void resetPlayerTexturePack(String playerName)
+	{
+		playerPacks.remove(playerName.toLowerCase());
+
+		Player player = plugin.getServer().getPlayer(playerName);
+		if (player != null)
+		{
+			SpoutPlayer sPlayer = SpoutManager.getPlayer(player);
+			if (sPlayer != null && sPlayer.isSpoutCraftEnabled())
+				setPack(sPlayer, 0);
+		}
+	}
+
+
+
+	public static void loadTexturePackList()
+	{
+		try
+		{
+			FileInputStream in = new FileInputStream(configFile);
+			texturePacks = (Map<String, String>)yaml.load(new UnicodeReader(in));
+		}
+		catch (FileNotFoundException e)
+		{
+		}
+
+		if (texturePacks == null || texturePacks.isEmpty())
+			useDefaults();
+	}
 
 	// load player data
 	private static void loadPlayerPacks()

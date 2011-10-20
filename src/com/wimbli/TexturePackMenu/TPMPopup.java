@@ -3,7 +3,6 @@ package com.wimbli.TexturePackMenu;
 import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.ChatColor;
 
 import org.getspout.spoutapi.event.screen.ButtonClickEvent;
@@ -19,7 +18,7 @@ import org.getspout.spoutapi.SpoutManager;
 
 public class TPMPopup extends GenericPopup
 {
-	private Plugin tmpPlugin;
+	private TexturePackMenu tmpPlugin;
 	private SpoutPlayer sPlayer;
 	private GenericButton bNext, bPrev;
 	private ArrayList<GenericButton> bChoice = new ArrayList<GenericButton>(10);
@@ -27,7 +26,7 @@ public class TPMPopup extends GenericPopup
 	private int page = 0, maxPage = 0;
 
 
-	public static void create(Plugin plugin, Player player)
+	public static void create(TexturePackMenu plugin, Player player)
 	{
 		if (!player.hasPermission("texturepackmenu.texture")) {
 			player.sendMessage("You do not have the necessary permission to choose a texture pack.");
@@ -38,7 +37,7 @@ public class TPMPopup extends GenericPopup
 		newPopup.initiate();
 	}
 
-	public TPMPopup(Plugin mainPlugin, Player player)
+	public TPMPopup(TexturePackMenu mainPlugin, Player player)
 	{
 		if (player == null)
 			return;
