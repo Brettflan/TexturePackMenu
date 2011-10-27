@@ -84,7 +84,7 @@ public class TPMPopup extends GenericPopup
 
 	private void makeChoice(int buttonIndex)
 	{
-		Config.setPack(sPlayer, (page * 10) + buttonIndex);
+		Config.setPackDelayed(sPlayer, (page * 10) + buttonIndex);
 		exit();
 	}
 

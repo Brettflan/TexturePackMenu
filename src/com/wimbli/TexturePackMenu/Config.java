@@ -94,10 +94,27 @@ public class Config
 			index = 0;
 		setPlayerTexturePack(sPlayer, texPackNames()[index]);
 	}
+	public static void setPackDelayed(final SpoutPlayer sPlayer, final int index)
+	{
+		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				setPack(sPlayer, index);
+			}
+		}, 10);
+	}
 
 	private static void setPlayerTexturePack(SpoutPlayer sPlayer, String packName)
 	{
+		if (sPlayer == null || !sPlayer.isOnline())
+			return;
+
 		String packURL = texturePacks.get(packName);
+
+		sPlayer.sendNotification("Texture pack selected:", packName, Material.PAINTING);
+		storePlayerTexturePack(sPlayer.getName(), packName);
 
 		if (packURL == null || packURL.isEmpty())
 			sPlayer.resetTexturePack();
@@ -111,9 +128,6 @@ public class Config
 			if (crc == null || crc == 0)
 				plugin.logWarn("Bad CRC value for texture pack. It is probably an invalid URL: "+packURL);
 		}
-
-		sPlayer.sendNotification("Texture pack selected:", packName, Material.PAINTING);
-		storePlayerTexturePack(sPlayer.getName(), packName);
 	}
 
 	public static void storePlayerTexturePack(String playerName, String packName)
