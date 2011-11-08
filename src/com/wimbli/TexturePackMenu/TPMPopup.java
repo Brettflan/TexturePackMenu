@@ -92,6 +92,8 @@ public class TPMPopup extends GenericPopup
 	{
 		bPrev.setEnabled(page > 0);
 		bNext.setEnabled(page < maxPage);
+		bPrev.setDirty(true);
+		bNext.setDirty(true);
 
 		int loop, offset = page * 10;
 
@@ -118,13 +120,14 @@ public class TPMPopup extends GenericPopup
 
 			btn.setText(text);
 			btn.setVisible(true);
+			btn.setDirty(true);
 		}
 		while (loop < 10)
 		{
 			bChoice.get(loop).setVisible(false);
+			bChoice.get(loop).setDirty(true);
 			loop++;
 		}
-		this.setDirty(true);
 	}
 
 	private void nextPage()
