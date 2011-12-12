@@ -149,17 +149,20 @@ public class TPMPopup extends GenericPopup
 	private void initLabels()
 	{
 		GenericLabel label = new GenericLabel("Choose a texture pack below:");
+		label.setWidth(1).setHeight(1);  // prevent Spout's questionable "no default size" warning; how a variable width/height text widget benefits from a width and height being set is beyond me
 		label.setTextColor(new Color(63,255,63,0));
 		label.setScale(2.0f);
 		label.setX(64).setY(20);
 		this.attachWidget(tmpPlugin, label);
 
 		label = new GenericLabel("* - Default Pack");
+		label.setWidth(1).setHeight(1);  // prevent Spout's questionable "no default size" warning
 		label.setX(207).setY(191);
 		label.setTextColor(new Color(127,255,255,0));
 		this.attachWidget(tmpPlugin, label);
 
 		label = new GenericLabel("@ - Current Pack");
+		label.setWidth(1).setHeight(1);  // prevent Spout's questionable "no default size" warning
 		label.setX(204).setY(201);
 		label.setTextColor(new Color(191,255,191,0));
 		this.attachWidget(tmpPlugin, label);
