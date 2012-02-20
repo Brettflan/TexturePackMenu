@@ -1,13 +1,15 @@
 package com.wimbli.TexturePackMenu;
 
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
-import org.getspout.spoutapi.event.spout.SpoutListener;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 
-public class TPMListener extends SpoutListener
+public class TPMListener implements Listener
 {
-	@Override
+	@EventHandler(priority = EventPriority.NORMAL)
 	public void onSpoutCraftEnable(SpoutCraftEnableEvent event)
 	{
 		SpoutPlayer sPlayer = event.getPlayer();
