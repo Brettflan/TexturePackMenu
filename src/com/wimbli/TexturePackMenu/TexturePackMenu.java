@@ -27,19 +27,19 @@ public class TexturePackMenu extends JavaPlugin
 	}
 
 
-	public void log(Level lvl, String text)
+	protected final void log(Level lvl, String text)
 	{
 		mcLog.log(lvl, String.format("[%s] %s", logName, text));
 	}
-	public void log(String text)
+	protected final void log(String text)
 	{
 		log(Level.INFO, text);
 	}
-	public void logWarn(String text)
+	protected final void logWarn(String text)
 	{
 		log(Level.WARNING, text);
 	}
-	public void logConfig(String text)
+	protected final void logConfig(String text)
 	{
 		log(Level.INFO, "[CONFIG] " + text);
 	}

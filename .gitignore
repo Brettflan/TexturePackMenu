@@ -1,7 +1,7 @@
-/lib/craftbukkit-0.0.1-SNAPSHOT.jar
 /build
 /dist
 /nbproject/private
 /nbproject/pmd.settings
 /nbproject/findbugs.settings
-/lib/craftbukkit-1.0.1-R1.jar
+/lib/craftbukkit.jar
+/lib/SpoutAPI.jar
