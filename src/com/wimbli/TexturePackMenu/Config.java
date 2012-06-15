@@ -20,7 +20,7 @@ import org.bukkit.Material;
 
 import org.getspout.spoutapi.player.SpoutPlayer;
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.commons.io.CRCStore;
+import org.getspout.spoutapi.io.CRCStore;
 
 public class Config
 {
