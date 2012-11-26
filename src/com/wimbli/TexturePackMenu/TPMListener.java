@@ -17,6 +17,6 @@ public class TPMListener implements Listener
 			return;
 
 		String texPack = Config.getPack(sPlayer.getName());
-		Config.setPack(sPlayer, texPack);
+		Config.setPackDelayed(sPlayer, texPack);
 	}
 }

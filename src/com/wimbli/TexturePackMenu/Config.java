@@ -94,16 +94,22 @@ public class Config
 			index = 0;
 		setPlayerTexturePack(sPlayer, texPackNames()[index]);
 	}
-	public static void setPackDelayed(final SpoutPlayer sPlayer, final int index)
+	public static void setPackDelayed(final SpoutPlayer sPlayer, final String packName)
 	{
 		plugin.getServer().getScheduler().scheduleAsyncDelayedTask(plugin, new Runnable()
 		{
 			@Override
 			public void run()
 			{
-				setPack(sPlayer, index);
+				setPlayerTexturePack(sPlayer, packName);
 			}
 		}, 10);
+	}
+	public static void setPackDelayed(SpoutPlayer sPlayer, int index)
+	{
+		if (texturePacks.size() < index - 1)
+			index = 0;
+		setPackDelayed(sPlayer, texPackNames()[index]);
 	}
 
 	private static void setPlayerTexturePack(SpoutPlayer sPlayer, String packName)
